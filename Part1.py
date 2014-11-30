@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 import scipy as sp
 import sqlite3
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('solarenergyplant.db')
 
 c=conn.cursor()
-c.execute("DROP TABLE IF EXISTS solardata")
-c.execute('''CREATE TABLE solardata (SiteName,SiteAddress,SiteCity,PanelNum,PanelWatts,SensorNum,SensorTemp,SensorIrradiance,Dates,Time)''')
+#c.execute("DROP TABLE IF EXISTS solardata")
+c.execute('''CREATE TABLE solarenergyplant (SiteName,SiteAddress,SiteCity,PanelNum,PanelWatts,SensorNum,SensorTemp,SensorIrradiance,Dates,Time)''')
 
 text_file=open("GeneralData.txt",'r')
 lines = text_file.read().split('\n')
@@ -64,7 +64,7 @@ for n in range(1,len(lines)-1):
     Time=data2[9]
     print Time
     print type(Time)
-    c.execute("INSERT INTO solardata VALUES (?,?,?,?,?,?,?,?,?,?);",(SiteName,SiteAddress,SiteCity,PanelNum,PanelWatts,SensorNum,SensorTemp,SensorIrradiance,Dates,Time))
+    c.execute("INSERT INTO solarenergyplant VALUES (?,?,?,?,?,?,?,?,?,?);",(SiteName,SiteAddress,SiteCity,PanelNum,PanelWatts,SensorNum,SensorTemp,SensorIrradiance,Dates,Time))
     conn.commit()
 conn.close()    
 
