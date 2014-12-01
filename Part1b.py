@@ -8,6 +8,10 @@ c=conn.cursor()
 
 #for row in c.execute('SELECT * FROM solardata'):
 #	print row
+
+####################################################
+#DROP TABLES
+####################################################
 c.execute("DROP TABLE IF EXISTS PLANTMAIN")
 c.execute("DROP TABLE IF EXISTS PLANTCITY")
 c.execute("DROP TABLE IF EXISTS PLANTPANEL")
@@ -57,7 +61,13 @@ c.execute("DROP TABLE IF EXISTS P1T1IrradTime")
 c.execute("DROP TABLE IF EXISTS P2T1IrradTime")
 c.execute("DROP TABLE IF EXISTS P3T1IrradTime")
 c.execute("DROP TABLE IF EXISTS P4T1IrradTime")
+####################################################
+#END - DROP TABLES
+####################################################
 
+####################################################
+#SITE/CITY TABLE
+####################################################
 c.execute('''CREATE TABLE PLANTCITY (SiteName TEXT primary key,SiteCity TEXT);''')
 conn.execute("INSERT INTO PLANTCITY (SiteName,SiteCity) \
       VALUES ('BatCave','Bulverde')");
@@ -68,7 +78,13 @@ conn.execute("INSERT INTO PLANTCITY (SiteName,SiteCity) \
 conn.execute("INSERT INTO PLANTCITY (SiteName,SiteCity) \
       VALUES ('RiverBend','FallsCity')");
 conn.commit()
+####################################################
+#END - SITE/CITY TABLE
+####################################################
 
+####################################################
+#CITY/ADDRESS TABLE
+####################################################
 c.execute('''CREATE TABLE CITYADDRESS (SiteAddress TEXT primary key,SiteCity TEXT);''')
 conn.execute("INSERT INTO CITYADDRESS (SiteAddress,SiteCity) \
       VALUES ('1856ScenicLoop','Bulverde')");
@@ -79,7 +95,13 @@ conn.execute("INSERT INTO CITYADDRESS (SiteAddress,SiteCity) \
 conn.execute("INSERT INTO CITYADDRESS (SiteAddress,SiteCity) \
       VALUES ('20987SmithRd.','FallsCity')");
 conn.commit()
+####################################################
+#END - CITY/ADDRESS TABLE
+####################################################
 
+####################################################
+#SITE/PANEL TABLE
+####################################################
 c.execute('''CREATE TABLE PLANTPANEL (SiteName TEXT,PanelNum Integer);''')
 conn.execute("INSERT INTO PLANTPANEL (SiteName,PanelNum) \
       VALUES ('BatCave',1)");
@@ -117,7 +139,13 @@ conn.execute("INSERT INTO PLANTPANEL (SiteName,PanelNum) \
 conn.execute("INSERT INTO PLANTPANEL (SiteName,PanelNum) \
       VALUES ('RiverBend',4)");
 conn.commit()
+####################################################
+#END - SITE/PANEL TABLE
+####################################################
 
+####################################################
+#PANEL/SENSORS TABLE
+####################################################
 c.execute('''CREATE TABLE PANELSENSOR (PanelNum Integer,SensorNum Integer PRIMARY KEY);''')
 conn.execute("INSERT INTO PANELSENSOR(PanelNum,SensorNum) \
       VALUES (1,10)");
@@ -136,7 +164,13 @@ conn.execute("INSERT INTO PANELSENSOR (PanelNum,SensorNum) \
 conn.execute("INSERT INTO PANELSENSOR (PanelNum,SensorNum) \
       VALUES (4,80)");
 conn.commit()
+####################################################
+#END - PANEL/SENSORS TABLE
+####################################################
 
+####################################################
+#PLANTS/DATES TABLES
+####################################################
 #TABLE FOR PLANT 1 DATES
 c.execute('''CREATE TABLE P1DATES(SiteName TEXT,Dates TEXT primary key);''')
 conn.execute("INSERT INTO P1DATES (SiteName,Dates) \
@@ -176,6 +210,9 @@ conn.execute("INSERT INTO P4DATES (SiteName,Dates) \
 conn.execute("INSERT INTO P4DATES (SiteName,Dates) \
       VALUES ('RiverBend','2000-03-01')");
 conn.commit()
+####################################################
+#END - PLANTS/DATES TABLES
+####################################################
 
 ####################################################
 #PLANTS/DATES/TEMPERAURE TABLES
@@ -214,7 +251,6 @@ for row in all_rows:
       VALUES (?,?);",(tempdates, temptemperature));
 conn.commit()
 
-
 #TABLE FOR PLANT 2 DATE 1 Temperature
 tplant=('GreatPlains',)
 c.execute('''CREATE TABLE P2M1TEMP(Dates TEXT,SensorTemp INTEGER);''')
@@ -246,7 +282,6 @@ for row in all_rows:
       VALUES (?,?);",(tempdates, temptemperature));
 conn.commit()
 
-
 #TABLE FOR PLANT 3 DATE 1 Temperature
 tplant=('NW-Vista',)
 c.execute('''CREATE TABLE P3M1TEMP(Dates TEXT,SensorTemp INTEGER);''')
@@ -277,7 +312,6 @@ for row in all_rows:
 	conn.execute("INSERT INTO P3M3TEMP (Dates,SensorTemp) \
       VALUES (?,?);",(tempdates, temptemperature));
 conn.commit()
-
 
 #TABLE FOR PLANT 4 DATE 1 Temperature
 tplant=('RiverBend',)
@@ -350,7 +384,6 @@ for row in all_rows:
       VALUES (?,?);",(tempdates, tempirradiance));
 conn.commit()
 
-
 #TABLE FOR PLANT 2 DATE 1 irradiance
 tplant=('GreatPlains',)
 c.execute('''CREATE TABLE P2M1Irradiance(Dates TEXT,SensorIrradiance INTEGER);''')
@@ -413,7 +446,6 @@ for row in all_rows:
 	conn.execute("INSERT INTO P3M3Irradiance (Dates,SensorIrradiance) \
       VALUES (?,?);",(tempdates, tempirradiance));
 conn.commit()
-
 
 #TABLE FOR PLANT 4 DATE 1 irradiance
 tplant=('RiverBend',)
@@ -511,7 +543,6 @@ conn.commit()
 #END - PLANTS/DATES/IRRADIANCE TABLES
 ####################################################
 
-
 ####################################################
 #PLANTS/DATES/WATTS TABLES
 ####################################################
@@ -581,7 +612,6 @@ for row in all_rows:
       VALUES (?,?);",(tempdates, tempWatts));
 conn.commit()
 
-
 #TABLE FOR PLANT 3 DATE 1 Watts
 tplant=('NW-Vista',)
 c.execute('''CREATE TABLE P3M1Watts(Dates TEXT,PanelWatts INTEGER);''')
@@ -649,4 +679,4 @@ conn.commit()
 ####################################################
 
 c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-print(c.fetchall())
+print(c.fetchall())	
