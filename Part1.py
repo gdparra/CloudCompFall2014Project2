@@ -6,7 +6,7 @@ import sqlite3
 conn = sqlite3.connect('solarenergyplant.db')
 
 c=conn.cursor()
-#c.execute("DROP TABLE IF EXISTS solardata")
+c.execute("DROP TABLE IF EXISTS solarenergyplant")
 c.execute('''CREATE TABLE solarenergyplant (SiteName,SiteAddress,SiteCity,PanelNum,PanelWatts,SensorNum,SensorTemp,SensorIrradiance,Dates,Time)''')
 
 text_file=open("GeneralData.txt",'r')
