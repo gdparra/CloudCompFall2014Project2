@@ -1,3 +1,11 @@
+#The following code creates the tables required for faster computations and
+#A better logical structure that will provide all requested data
+#Above each section of code that creates each table you will find a comment stating
+#In two fields corresponding to Column1/Column2 or 
+#In Three fields corresponding to Table/Column1/Column2
+#Data Tables that has Watts,Temperature and Irradiance data were created from the
+#Data table solarenergyplant which was created on Part1a.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sp
@@ -679,4 +687,5 @@ conn.commit()
 ####################################################
 
 c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-print(c.fetchall())	
+print(c.fetchall())
+conn.close()	
