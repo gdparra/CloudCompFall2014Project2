@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy as sp
+import sqlite3
+import csv
+
+def final(key, value):
+    print key, value
+
+# client
+def mapfn(key, value):
+    for i in range(value + 1):
+        yield key, i
+        print key,i
+
+def reducefn(key, value):
+    for i in range(value + 1):
+        yield key, i
+        print key, i
+
+text_file=open("solardata.csv",'r') #Document with data of SolarEnergyPlant
+file = open('solardata.csv')
+reader = csv.reader(file)
+next(reader, None)
+
+day=[]
+etr=[]
+data=[]
+for line in reader:
+	day.append(str(line[0]))
+	etr.append(int(line[4]))
+
+xvar=map(mapfn,day,etr)
+yvar=reduce(reducefn,xvar)
+
+
+
