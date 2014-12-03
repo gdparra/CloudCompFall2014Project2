@@ -63,8 +63,8 @@ P1Months.append(Dates) #Month Collector
 ####################################################
 #End - Average Temperature for Plant 'BatCave'
 ####################################################
-print P1avgTemp #Average Temperature Collector
-print P1Months #Month Collector
+#print P1avgTemp #Average Temperature Collector
+#print P1Months #Month Collector
 ####################################################
 #Average Temperature for Plant 'GreatPlains'
 ####################################################
@@ -118,8 +118,8 @@ P2Months.append(Dates) #Month Collector
 ####################################################
 #End - Average Temperature for Plant 'GreatPlains'
 ####################################################
-print P2avgTemp #Average Temperature Collector
-print P2Months #Month Collector
+#print P2avgTemp #Average Temperature Collector
+#print P2Months #Month Collector
 ####################################################
 #Average Temperature for Plant 'NW-Vista'
 ####################################################
@@ -173,8 +173,8 @@ P3Months.append(Dates) #Month Collector
 ####################################################
 #End - Average Temperature for Plant 'NW-Vista'
 ####################################################
-print P3avgTemp #Average Temperature Collector
-print P3Months #Month Collector
+#print P3avgTemp #Average Temperature Collector
+#print P3Months #Month Collector
 ####################################################
 #Average Temperature for Plant 'RiverBend'
 ####################################################
@@ -228,6 +228,47 @@ P4Months.append(Dates) #Month Collector
 ####################################################
 #End - Average Temperature for Plant 'RiverBend'
 ####################################################
-print P4avgTemp #Average Temperature Collector
-print P4Months #Month Collector
+#print P4avgTemp #Average Temperature Collector
+#print P4Months #Month Collector
 conn.close()
+
+####################################################
+#PLOT
+####################################################
+Tmonths=P1Months+P2Months+P3Months+P4Months
+N = 3 #Bars per Plant
+N2= 12 #Total X Labels
+ind = np.arange(N) #Bars per Plant
+ind2= np.arange(N2) #Total X Labels
+width = 0.5 #Bar width
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(ind, P1avgTemp, width, color='b')
+rects2 = ax.bar(ind+3, P2avgTemp, width, color='g')
+rects3 = ax.bar(ind+6, P3avgTemp, width, color='y')
+rects4 = ax.bar(ind+9, P4avgTemp, width, color='r')
+
+#Add X and Y Axis labels and Title
+ax.set_ylabel('Average Temperature')
+ax.set_title('Average Temperature per Plant and Month')
+ax.set_xticks(ind2)
+ax.set_xticklabels(Tmonths, rotation=45)
+
+#Define Legend
+ax.legend( (rects1[0],rects2[0],rects3[0],rects4[0]), ('BatCave','GreatPlains','NW-Vista','RiverBend') ,loc=4)
+plt.axis([0, 12, 0, 75])
+
+#Define Bar Labels
+def autolabel(rects):
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
+autolabel(rects4)
+plt.show()
+####################################################
+#END - PLOT
+####################################################

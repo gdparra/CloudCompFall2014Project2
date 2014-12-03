@@ -54,9 +54,9 @@ P1time.append(str(''.join(map(str,temptime))).rstrip())#Time Collector
 ####################################################################
 #END - Maximum Irradiance per Plant per Month for Plant 'BatCave'
 ####################################################################
-print P1maxirrad #Max Irradiance Collector
-print P1Months #Month Collector
-print P1time #Time Collector
+#print P1maxirrad #Max Irradiance Collector
+#print P1Months #Month Collector
+#print P1time #Time Collector
 ####################################################################
 #Maximum Irradiance per Plant per Month for Plant 'GreatPlains'
 ####################################################################
@@ -101,9 +101,9 @@ P2time.append(str(''.join(map(str,temptime))).rstrip())#Time Collector
 ####################################################################
 #END - Maximum Irradiance per Plant per Month for Plant 'GreatPlains'
 ####################################################################
-print P2maxirrad #Max Irradiance Collector
-print P2Months #Month Collector
-print P2time #Time Collector
+#print P2maxirrad #Max Irradiance Collector
+#print P2Months #Month Collector
+#print P2time #Time Collector
 ####################################################################
 #Maximum Irradiance per Plant per Month for Plant 'NW-Vista'
 ####################################################################
@@ -148,9 +148,9 @@ P3time.append(str(''.join(map(str,temptime))).rstrip())#Time Collector
 ####################################################################
 #END - Maximum Irradiance per Plant per Month for Plant 'NW-Vista'
 ####################################################################
-print P3maxirrad #Max Irradiance Collector
-print P3Months #Month Collector
-print P3time #Time Collector
+#print P3maxirrad #Max Irradiance Collector
+#print P3Months #Month Collector
+#print P3time #Time Collector
 ####################################################################
 #Maximum Irradiance per Plant per Month for Plant 'RiverBend'
 ####################################################################
@@ -195,7 +195,49 @@ P4time.append(str(''.join(map(str,temptime))).rstrip()) #Time Collector
 ####################################################################
 #END - Maximum Irradiance per Plant per Month for Plant 'RiverBend'
 ####################################################################
-print P4maxirrad #Max Irradiance Collector
-print P4Months #Month Collector
-print P4time #Time Collector
+#print P4maxirrad #Max Irradiance Collector
+#print P4Months #Month Collector
+#print P4time #Time Collector
 conn.close()
+
+####################################################
+#PLOT
+####################################################
+Tmonths=P1Months+P2Months+P3Months+P4Months
+Ttime=P1time+P2time+P3time+P4time
+N = 3 #Bars per Plant
+N2= 12 #Total X Labels
+ind = np.arange(N) #Bars per Plant
+ind2= np.arange(N2) #Total X Labels
+width = 0.5 #Bar width
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(ind, P1maxirrad, width, color='b')
+rects2 = ax.bar(ind+3, P2maxirrad, width, color='g')
+rects3 = ax.bar(ind+6, P3maxirrad, width, color='y')
+rects4 = ax.bar(ind+9, P4maxirrad, width, color='r')
+
+#Add X and Y Axis labels and Title
+ax.set_ylabel('Max Irradiance')
+ax.set_title('Max Irradiance per Plant and Month - (All foud at 12:00 Hrs)')
+ax.set_xticks(ind2)
+ax.set_xticklabels(Tmonths, rotation=45)
+
+#Define Legend
+ax.legend( (rects1[0],rects2[0],rects3[0],rects4[0]), ('BatCave','GreatPlains','NW-Vista','RiverBend') ,loc=4)
+plt.axis([0, 12, 0, 80])
+
+#Define Bar Labels
+def autolabel(rects):
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
+autolabel(rects4)
+plt.show()
+####################################################
+#END - PLOT
+####################################################
